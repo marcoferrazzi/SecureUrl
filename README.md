@@ -141,12 +141,12 @@ The key ID is only a routing hint: it is the weekly epoch modulo 256 (about 4.9 
 `benchmarks/SecureUrl.Benchmarks` compares token length, time and allocations against ASP.NET Core Data Protection (`ITimeLimitedDataProtector`). See its README for how to run it and how to read the results.
 
 ```bash
-dotnet run -c Release --project benchmarks/SecureUrl.Benchmarks -- lengths
-dotnet run -c Release --project benchmarks/SecureUrl.Benchmarks -- bench
+dotnet run -c Release --project SecureUrl.Benchmarks -- lengths
+dotnet run -c Release --project SecureUrl.Benchmarks -- bench
 ```
 
 ## Tests
 
 ```bash
-dotnet test tests/SecureUrl.Core.Tests
+dotnet test SecureUrl.Core.Tests
 ```
