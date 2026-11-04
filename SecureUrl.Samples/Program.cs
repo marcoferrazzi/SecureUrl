@@ -27,7 +27,7 @@ app.UseStaticFiles();
 
 
 // Endpoint: CreateLink
-app.MapPost("/links/{fileName}", (string fileName, IUrlProtector protector, ClaimsPrincipal user, HttpContext context) =>
+app.MapPost("/links/{fileName}", (string fileName, IUrlProtector protector, ClaimsPrincipal user, HttpContext httpContext) =>
 {
     //string userId = GetUserId(user);
 
@@ -36,7 +36,7 @@ app.MapPost("/links/{fileName}", (string fileName, IUrlProtector protector, Clai
     string token = protector.Protect(fileName, TimeSpan.FromMinutes(30));
 
     // Generate the download URL
-    string? downloadUrl = $"{context.Request.Scheme}://{context.Request.Host}/download/{token}";
+    string? downloadUrl = $"{httpContext.Request.Scheme}://{httpContext.Request.Host}/download/{token}";
 
     return Results.Ok(new { url = downloadUrl });
 })
@@ -44,7 +44,7 @@ app.MapPost("/links/{fileName}", (string fileName, IUrlProtector protector, Clai
 .WithSummary("Generates a secure download link for a file");
 
 // Endpoint: Download
-app.MapGet("/download/{token}", (string token, IUrlProtector protector, IConfiguration configuration, IWebHostEnvironment env, ClaimsPrincipal user, HttpContext context) =>
+app.MapGet("/download/{token}", (string token, IUrlProtector protector, IConfiguration configuration, IWebHostEnvironment env, ClaimsPrincipal user, HttpContext httpContext) =>
 {
     //string userId = GetUserId(user);
 
@@ -76,8 +76,8 @@ app.MapGet("/download/{token}", (string token, IUrlProtector protector, IConfigu
     }
 
     // Set security headers
-    context.Response.Headers.CacheControl = "private, no-store";
-    context.Response.Headers["Referrer-Policy"] = "no-referrer";
+    httpContext.Response.Headers.CacheControl = "private, no-store";
+    httpContext.Response.Headers["Referrer-Policy"] = "no-referrer";
 
     // Return the physical file with range request support
     return Results.File(fullPath, contentType: contentType, enableRangeProcessing: true);
@@ -86,3 +86,10 @@ app.MapGet("/download/{token}", (string token, IUrlProtector protector, IConfigu
 .WithSummary("Downloads the file using a temporary access token");
 
 app.Run();
+
+// Stable, immutable identifier of the authenticated user (the JWT "sub" claim).
+// Never use the IP address or the User-Agent as context: they change legitimately during a session.
+static string GetUserId(ClaimsPrincipal user) =>
+    user.FindFirstValue(ClaimTypes.NameIdentifier)
+    ?? user.FindFirstValue("sub")
+    ?? throw new InvalidOperationException("Authenticated user without a stable identifier claim.");
