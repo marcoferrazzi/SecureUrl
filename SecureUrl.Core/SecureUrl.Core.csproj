@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>SecureUrl.Core</RootNamespace>
+    <Description>Stateless, compact, and time-limited AEAD (Authenticated Encryption with Associated Data) tokens for download links.</Description>
+	<Authors>Marco Ferrazzi</Authors>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.14" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="SecureUrl.Core.Tests" />
+  </ItemGroup>
+</Project>

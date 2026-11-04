@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>SecureUrl.Benchmarks</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Check nuget.org for the latest versions that support net10.0 before running. -->
+    <PackageReference Include="BenchmarkDotNet" Version="0.15.8" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection" Version="10.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.Extensions" Version="10.0.14" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SecureUrl.Core\SecureUrl.Core.csproj" />
+  </ItemGroup>
+
+</Project>

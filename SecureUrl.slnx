@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="SecureUrl.Core/SecureUrl.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="SecureUrl.Core.Tests/SecureUrl.Core.Tests.csproj" />
+  </Folder>
+  <Folder Name="/benchmarks/">
+    <Project Path="SecureUrl.Benchmarks/SecureUrl.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/samples/">
+    <Project Path="SecureUrl.Samples/SecureUrl.Samples.csproj" Id="2169bcaf-ae85-43f7-ae0f-e84a82fc4887" />
+  </Folder>
+</Solution>
